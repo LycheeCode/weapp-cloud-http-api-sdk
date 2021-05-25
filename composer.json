@@ -1,0 +1,12 @@
+{
+    "name": "lychee/weapp-cloud-sdk",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Y!an",
+            "email": "i@yian.me"
+        }
+    ],
+    "license": "MIT",
+    "require": {}
+}
