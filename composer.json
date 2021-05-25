@@ -1,5 +1,6 @@
 {
     "name": "lychee/weapp-cloud-sdk",
+    "description": "小程序云开发 HTTP API SDK",
     "type": "library",
     "authors": [
         {
@@ -8,5 +9,16 @@
         }
     ],
     "license": "MIT",
-    "require": {}
+    "require": {},
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^v3.0.0"
+    },
+    "autoload": {
+        "psr-4" : {
+            "Lychee\\": "src/"
+        }
+    },
+    "scripts": {
+        "cs-fix": "vendor/bin/php-cs-fixer fix src/"
+    }
 }
