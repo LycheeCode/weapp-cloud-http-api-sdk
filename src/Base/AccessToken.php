@@ -2,7 +2,7 @@
 
 namespace Lychee\Cloud\Base;
 
-use GuzzleHttp\Client;
+use Lychee\Cloud\Support\Http\Request as Client;
 use Psr\SimpleCache\CacheInterface;
 
 class AccessToken
@@ -19,7 +19,7 @@ class AccessToken
         $this->storage   = $storage;
         $this->appid     = $appid;
         $this->appsecret = $appsecret;
-        $this->client    = new Client;
+        $this->client    = new Client();
     }
 
     public function get(bool $force_refresh)
@@ -52,7 +52,7 @@ class AccessToken
 
         $response = $this->client->get($url);
 
-        $body = $response->getBody()->getContents();
+        $body = $response['body'];
 
         return json_decode($body, true);
     }

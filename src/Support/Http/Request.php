@@ -2,6 +2,8 @@
 
 namespace Lychee\Cloud\Support\Http;
 
+use Lychee\Cloud\Support\Http\Constants\Type;
+
 class Request
 {
     public $ua = "Lychee WeApp Cloud HTTP API Client";
@@ -74,7 +76,7 @@ class Request
             CURLOPT_URL            => $url,
             CURLOPT_POST           => 1,
             CURLOPT_POSTFIELDS     => $raw_data,
-            CURLOPT_HTTPHEADER     => is_null($type) ? ['Content-Type: text/plain'] : ['Content-Type: ' . $type]
+            CURLOPT_HTTPHEADER     => is_null($type) ? ['Content-Type: ' . Type::TEXT] : ['Content-Type: ' . $type]
         ];
 
         return $this->request($options);
