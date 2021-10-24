@@ -10,6 +10,7 @@ class App
 {
     private $appid;
     private $appsecret;
+    private $env;
 
     /**
      * 缓存管理器
@@ -37,8 +38,13 @@ class App
             throw new \Exception('appsecret is required');
         }
 
+        if (! isset($options['env'])) {
+            throw new \Exception('env is required');
+        }
+
         $this->appid = $options['appid'];
         $this->appsecret = $options['appsecret'];
+        $this->env = $options['env'];
 
         if (isset($options['cache'])) {
             if (! $options['cache'] instanceof CacheInterface) {
@@ -73,7 +79,7 @@ class App
     public function database(): Database
     {
         if (is_null($this->database)) {
-            $this->database = new Database($this->access_token);
+            $this->database = new Database($this->access_token, $this->env);
         }
 
         return $this->database;

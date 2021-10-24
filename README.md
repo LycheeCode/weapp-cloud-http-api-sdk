@@ -20,6 +20,7 @@ use Lychee\Cloud\App;
 $app = new App([
     'appid'     => 'YOUR_APPID',
     'appsecret' => 'YOUR_APPSECRET',
+    'env'       => 'YOUR_ENV',
 ]);
 ```
 
@@ -48,6 +49,6 @@ $db = $app->database();
 
 `Database` 类目前支持的方法：
 
- - 插入记录 `add(string $env, string $query)`
- - 查询记录 `query(string $env, string $query)`
- - 更新记录 `update(string $env, string $query)`
+ - 插入记录 `add(string $query)`
+ - 查询记录 `query(string $query)`
+ - 更新记录 `update(string $query)`

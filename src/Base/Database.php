@@ -10,16 +10,20 @@ class Database
 {
     private $at_manager;
 
+    private $env;
+
     private $client;
 
-    public function __construct(AccessToken $at_manager)
+    public function __construct(AccessToken $at_manager, string $env)
     {
         $this->at_manager = $at_manager;
+
+        $this->env = $env;
 
         $this->client = new Request();
     }
 
-    public function add(string $env, string $query)
+    public function add(string $query)
     {
         $url = sprintf(
             "https://api.weixin.qq.com/tcb/databaseadd?access_token=%s",
@@ -27,7 +31,7 @@ class Database
         );
 
         $query = [
-            'env'   => $env,
+            'env'   => $this->env,
             'query' => $query,
         ];
         $response = $this->client->postRaw(
@@ -41,7 +45,7 @@ class Database
         return json_decode($body, true);
     }
 
-    public function query(string $env, string $query)
+    public function query(string $query)
     {
         $url = sprintf(
             "https://api.weixin.qq.com/tcb/databasequery?access_token=%s",
@@ -49,7 +53,7 @@ class Database
         );
 
         $query = [
-            'env'   => $env,
+            'env'   => $this->env,
             'query' => $query,
         ];
         $response = $this->client->postRaw(
@@ -71,7 +75,7 @@ class Database
         );
 
         $query = [
-            'env'   => $env,
+            'env'   => $this->env,
             'query' => $query,
         ];
         $response = $this->client->postRaw(
