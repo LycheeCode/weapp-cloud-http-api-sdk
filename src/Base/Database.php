@@ -23,7 +23,7 @@ class Database
     {
         $url = sprintf(
             "https://api.weixin.qq.com/tcb/databaseadd?access_token=%s",
-            $this->at_manager->get()
+            $this->at_manager->get(true)
         );
 
         $query = [
@@ -45,7 +45,7 @@ class Database
     {
         $url = sprintf(
             "https://api.weixin.qq.com/tcb/databasequery?access_token=%s",
-            $this->at_manager->get()
+            $this->at_manager->get(true)
         );
 
         $query = [
@@ -67,7 +67,7 @@ class Database
     {
         $url = sprintf(
             "https://api.weixin.qq.com/tcb/databaseupdate?access_token=%s",
-            $this->at_manager->get()
+            $this->at_manager->get(true)
         );
 
         $query = [

@@ -22,11 +22,11 @@ class AccessToken
         $this->client    = new Client();
     }
 
-    public function get(bool $force_refresh)
+    public function get(bool $force_refresh = false): string
     {
         $accessToken = $this->storage->retrieve($this->appid);
 
-        if (empty($accessToken) && $force_refresh) {
+        if ($force_refresh) {
             $refresh = $this->refresh();
             if (isset($refresh['access_token'])) {
                 $this->set(
