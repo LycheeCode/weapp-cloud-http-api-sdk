@@ -67,7 +67,7 @@ class Database
         return json_decode($body, true);
     }
 
-    public function update($env, $query)
+    public function update(string $query)
     {
         $url = sprintf(
             "https://api.weixin.qq.com/tcb/databaseupdate?access_token=%s",
