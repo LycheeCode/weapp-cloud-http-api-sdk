@@ -52,3 +52,4 @@ $db = $app->database();
  - 插入记录 `add(string $query)`
  - 查询记录 `query(string $query)`
  - 更新记录 `update(string $query)`
+ - 删除记录 `delete(string $query)`

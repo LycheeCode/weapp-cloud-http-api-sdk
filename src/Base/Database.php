@@ -88,4 +88,26 @@ class Database
 
         return json_decode($body, true);
     }
+
+    public function delete(string $query)
+    {
+        $url = sprintf(
+            "https://api.weixin.qq.com/tcb/databasedelete?access_token=%s",
+            $this->at_manager->get(true)
+        );
+
+        $query = [
+            'env'   => $this->env,
+            'query' => $query,
+        ];
+        $response = $this->client->postRaw(
+            $url,
+            json_encode($query, JSON_UNESCAPED_UNICODE),
+            Type::JSON
+        );
+
+        $body = $response['body'];
+
+        return json_decode($body, true);
+    }
 }
