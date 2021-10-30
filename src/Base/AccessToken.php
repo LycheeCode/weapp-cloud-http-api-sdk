@@ -22,17 +22,13 @@ class AccessToken
         $this->client    = new Client();
     }
 
-    public function get(bool $force_refresh = false): string
+    public function get(bool $auto_refresh = false): string
     {
         $accessToken = $this->storage->retrieve($this->appid);
 
-        if ($force_refresh) {
+        if (empty($accessToken) && $auto_refresh) {
             $refresh = $this->refresh();
             if (isset($refresh['access_token'])) {
-                $this->set(
-                    $refresh['access_token'],
-                    $refresh['expires_in'] - 500
-                );
                 $accessToken = $refresh['access_token'];
             } else {
                 throw new \Exception($refresh['errmsg']);
@@ -54,7 +50,17 @@ class AccessToken
 
         $body = $response['body'];
 
-        return json_decode($body, true);
+        $res = json_decode($body, true);
+
+        if (isset($res['access_token'])) {
+            $this->set(
+                $res['access_token'],
+                $res['expires_in'] - 500
+            );
+            $accessToken = $res['access_token'];
+        }
+
+        return $res;
     }
 
     public function set(string $token, int $expire_in)

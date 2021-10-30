@@ -33,9 +33,10 @@ $app = new App([
 ```PHP
 $access_token = $app->accessToken()->get();
 
-// 强制从微信刷新 access_token
+// 如果本地缓存没有，自动从微信刷新 access_token
 $access_token = $app->accessToken()->get(true);
-// 也可以使用 refresh() 来获取，返回值格式为微信响应（array），不建议使用该方法，因为该方法不会将获取到的最新 token 写入缓存
+
+// 从微信刷新 access_token，返回值格式为微信响应（array）
 $access_token = $app->accessToken()->refresh();
 ```
 
