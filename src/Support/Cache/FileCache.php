@@ -39,7 +39,7 @@ class FileCache implements CacheInterface
 
         $data = json_decode(file_get_contents($file), true);
 
-        if (time() > $data['expires']) {
+        if (! is_null($data['expires']) && time() > $data['expires']) {
             $this->delete($key);
 
             return $default;
@@ -54,7 +54,7 @@ class FileCache implements CacheInterface
 
         $data = [
             'value'   => serialize($value),
-            'expires' => time() + $ttl
+            'expires' => is_null($ttl) ? null : time() + $ttl
         ];
 
         file_put_contents($file, json_encode($data));
@@ -121,6 +121,18 @@ class FileCache implements CacheInterface
     {
         $file = $this->path . '/' . $this->prefix  . 'data_' . $key;
 
-        return file_exists($file);
+        if (! file_exists($file)) {
+            return false;
+        }
+
+        $data = json_decode(file_get_contents($file), true);
+
+        if (! is_null($data['expires']) && time() > $data['expires']) {
+            $this->delete($key);
+
+            return false;
+        }
+
+        return true;
     }
 }
