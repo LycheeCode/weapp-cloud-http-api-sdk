@@ -29,7 +29,6 @@ class Request
     public function get(string $url): array
     {
         $options = [
-            CURLOPT_RETURNTRANSFER => 1,
             CURLOPT_USERAGENT      => $this->ua,
             CURLOPT_CONNECTTIMEOUT => $this->timeout,
             CURLOPT_URL            => $url,
@@ -48,7 +47,6 @@ class Request
     public function postFormData(string $url, array $datas): array
     {
         $options = [
-            CURLOPT_RETURNTRANSFER => 1,
             CURLOPT_USERAGENT      => $this->ua,
             CURLOPT_CONNECTTIMEOUT => $this->timeout,
             CURLOPT_URL            => $url,
@@ -70,13 +68,12 @@ class Request
     public function postRaw(string $url, string $raw_data, string $content_type = null): array
     {
         $options = [
-            CURLOPT_RETURNTRANSFER => 1,
             CURLOPT_USERAGENT      => $this->ua,
             CURLOPT_CONNECTTIMEOUT => $this->timeout,
             CURLOPT_URL            => $url,
             CURLOPT_POST           => 1,
             CURLOPT_POSTFIELDS     => $raw_data,
-            CURLOPT_HTTPHEADER     => is_null($type) ? ['Content-Type: ' . Type::TEXT] : ['Content-Type: ' . $type]
+            CURLOPT_HTTPHEADER     => is_null($content_type) ? ['Content-Type: ' . Type::TEXT] : ['Content-Type: ' . $type]
         ];
 
         return $this->request($options);
@@ -91,7 +88,6 @@ class Request
     public function head(string $url): array
     {
         $options = [
-            CURLOPT_RETURNTRANSFER => 1,
             CURLOPT_USERAGENT      => $this->ua,
             CURLOPT_CONNECTTIMEOUT => $this->timeout,
             CURLOPT_HEADER         => true,
@@ -110,6 +106,9 @@ class Request
      */
     private function request(array $options = []): array
     {
+        $options[CURLOPT_HEADER] = true; // curl_exec() 返回响应头
+        $options[CURLOPT_RETURNTRANSFER] = true;
+
         $client = curl_init();
         curl_setopt_array($client, $options);
 
