@@ -73,7 +73,7 @@ class Request
             CURLOPT_URL            => $url,
             CURLOPT_POST           => 1,
             CURLOPT_POSTFIELDS     => $raw_data,
-            CURLOPT_HTTPHEADER     => is_null($content_type) ? ['Content-Type: ' . Type::TEXT] : ['Content-Type: ' . $type]
+            CURLOPT_HTTPHEADER     => is_null($content_type) ? ['Content-Type: ' . Type::TEXT] : ['Content-Type: ' . $content_type]
         ];
 
         return $this->request($options);
