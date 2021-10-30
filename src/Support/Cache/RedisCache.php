@@ -3,6 +3,7 @@
 namespace Lychee\Cloud\Support\Cache;
 
 use Psr\SimpleCache\CacheInterface;
+use Redis;
 
 class RedisCache implements CacheInterface
 {
@@ -16,7 +17,7 @@ class RedisCache implements CacheInterface
      * @param object $redis
      * @param string $prefix
      */
-    public function __construct($redis_client, $prefix = 'cache:')
+    public function __construct(Redis $redis_client, $prefix = 'cache:')
     {
         $this->redis = $redis_client;
         $this->prefix = $prefix;
