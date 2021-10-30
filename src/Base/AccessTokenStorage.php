@@ -18,7 +18,7 @@ class AccessTokenStorage
     public function store(string $appid, string $token, $expire_in = 7200)
     {
         $this->cache->set(
-            KEY_PREFIX . md5($appid),
+            self::KEY_PREFIX . md5($appid),
             $token,
             $expire_in
         );
@@ -27,7 +27,7 @@ class AccessTokenStorage
     public function retrieve(string $appid)
     {
         return $this->cache->get(
-            KEY_PREFIX . md5($appid),
+            self::KEY_PREFIX . md5($appid),
         );
     }
 }

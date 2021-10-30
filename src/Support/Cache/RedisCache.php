@@ -18,7 +18,7 @@ class RedisCache implements CacheInterface
      */
     public function __construct($redis_client, $prefix = 'cache:')
     {
-        $this->redis = $redis;
+        $this->redis = $redis_client;
         $this->prefix = $prefix;
     }
 
