@@ -5,7 +5,7 @@ namespace Lychee\Cloud;
 use Lychee\Cloud\Base\AccessToken;
 use Lychee\Cloud\Base\AccessTokenStorage;
 use Lychee\Cloud\Base\Database;
-use Lychee\Cloud\Support\Cache\RedisCache;
+use Lychee\Cloud\Support\Cache\FileCache;
 use Psr\SimpleCache\CacheInterface;
 
 class App
@@ -55,12 +55,7 @@ class App
 
             $this->cache = $options['cache'];
         } else {
-            $redis = new \Redis();
-            $redis->connect('127.0.0.1', 6379); // TODO: 通过参数传递
-            $this->cache = new RedisCache(
-                $redis,
-                'lychee:cache:'
-            );
+            $this->cache = new FileCache();
         }
 
         $this->access_token = new AccessToken(

@@ -18,6 +18,15 @@ class FileCache implements CacheInterface
 
         $this->prefix = $prefix;
 
+        /**
+         * TODO: 将 $ttl != null 的 key 存储到 index_file 中，以便清理
+         *
+         *   因为当前的 FileCache 实现只用于缓存 Access Token，短期内不会造成缓存文件成堆，
+         *   估暂不实现清理功能，后续需要实清理时需要考虑以下场景：
+         *         1. 给一个不存在/不过期/已过期（等效于不存在）的 key 设置 ttl
+         *         2. 未过期的 key，转为了不过期（$ttl == null）
+         *         3. 未过期的 key，再次 set 并更新了 ttl
+         */
         $this->index_file = fopen(
             $this->path . '/' . $this->prefix . 'index',
             'w+'
